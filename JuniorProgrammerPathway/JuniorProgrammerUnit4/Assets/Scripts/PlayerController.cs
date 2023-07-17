@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private bool hasPowerup;
     private float powerupStrength = 15.0f;
     private GameObject powerupIndicator;
+    private InputReader inputReader;
     
     private void Start()
     {
@@ -19,25 +20,22 @@ public class PlayerController : MonoBehaviour
         // The focal point is the game object that has the RotateCamera script attached to it.
         focalPoint = FindObjectOfType<RotateCamera>().gameObject;
 
-        // The selection ring is the game object that has the SelectionRingRotation script attached to it.
         hasPowerup = false;
-    }
-
-    private void OnEnable()
-    {
+        inputReader = FindObjectOfType<InputReader>();
     }
 
     private void Update()
     {
         if(GameManager.Instance.gamePlaying == true)
         {
-            float forwardInput = Input.GetAxis("Vertical");
+            float forwardInput = inputReader.verticalInput;
             playerRigidbody.AddForce(focalPoint.transform.forward * moveSpeed * forwardInput);
         }
         if (hasPowerup == true)
         {
             powerupIndicator.transform.position = transform.position + new Vector3(0, -0.05f, 0);
         }
+        DestroyOffScreen();
     }
 
     private void OnTriggerExit(Collider other)
@@ -77,5 +75,11 @@ public class PlayerController : MonoBehaviour
     private void OnDestroy()
     {
         Destroy(powerupIndicator);
+    }
+
+    private void DestroyOffScreen()
+    {
+        Vector2 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
+        if (screenPosition.y > Screen.height || screenPosition.y < 0) { Destroy(this.gameObject); }
     }
 }

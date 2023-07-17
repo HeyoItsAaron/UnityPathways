@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
 
     public bool gamePlaying;
 
+    public event Action OnGameStart;
+
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(this); }
@@ -75,7 +77,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        if(difficulty / 2 == 0) { SpawnPowerUp(); }
+        if((int)(timePassed) / 10 == 0) { SpawnPowerUp(); }
         
         for(int i = 0; i < difficulty; i++)
         {
@@ -119,6 +121,7 @@ public class GameManager : MonoBehaviour
     }
     public void StartGame()
     {
+        OnGameStart?.Invoke();
         Reset();
 
         UIManager.Instance.SwitchToInGameUI();
@@ -163,7 +166,7 @@ public class GameManager : MonoBehaviour
     {
         if(enemiesDefeated > 5)
         {
-            difficulty = (enemiesDefeated + 1) / 2;
+            difficulty = (enemiesDefeated + 1) / 3;
         }
         else
         {

@@ -7,6 +7,10 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
+    [Header("Joystick")]
+    [SerializeField] private GameObject joystick;
+    [Space(10)]
+
     [Header("Runtime-modified text")]
     [SerializeField] private TextMeshProUGUI timeUI;
     [SerializeField] private TextMeshProUGUI enemiesDefeatedUI;
@@ -15,7 +19,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI highScoreUI;
     [SerializeField] private TextMeshProUGUI finalTimeUI;
     [SerializeField] private TextMeshProUGUI finalEnemyUI;
-
     [Space(10)]
 
     [Header("Buttons")]
@@ -51,6 +54,7 @@ public class UIManager : MonoBehaviour
     {
         ResetColorsAndText(highScore);
 
+        joystick.SetActive(false);
         retryButton.SetActive(false);
         finalScoreText.gameObject.SetActive(false);
         finalEnemyText.SetActive(false);
@@ -69,6 +73,7 @@ public class UIManager : MonoBehaviour
 
     public void SwitchToInGameUI()
     {
+        joystick.SetActive(true);
         finalEnemyText.SetActive(false);
         finalTimeText.SetActive(false);
         finalEnemyUI.gameObject.SetActive(false);
@@ -91,6 +96,8 @@ public class UIManager : MonoBehaviour
 
     public void SwitchToRetryUI(bool newRecord)
     {
+        joystick.SetActive(false);
+
         if (newRecord)
         {
             newRecordText.SetActive(newRecord);

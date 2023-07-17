@@ -21,6 +21,8 @@ public class Enemy : MonoBehaviour
         Vector3 lookDirection = (playerTransform.position - transform.position).normalized;
 
         enemyRigidbody.AddForce(lookDirection * enemySpeed);
+
+        DestroyOffScreen();
     }
     private void OnTriggerExit(Collider other)
     {
@@ -28,5 +30,10 @@ public class Enemy : MonoBehaviour
         {
             GameManager.Instance.DefeatedEnemy(this);
         }
+    }
+    private void DestroyOffScreen()
+    {
+        Vector2 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
+        if (screenPosition.y > Screen.height || screenPosition.y < 0) { Destroy(this.gameObject); }
     }
 }
