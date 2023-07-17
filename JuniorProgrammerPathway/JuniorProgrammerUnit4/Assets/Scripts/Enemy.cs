@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         enemyRigidbody = GetComponent<Rigidbody>();
-        // The playerTransform is the trasnform of the game object that has the PlayerController script attached to it.
+        // The playerTransform is the transform of the game object that has the PlayerController script attached to it.
         playerTransform = FindObjectOfType<PlayerController>().gameObject.GetComponent<Transform>();
     }
 
@@ -24,6 +24,9 @@ public class Enemy : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        Destroy(this.gameObject);
+        if(other.gameObject.GetComponent<Powerup>() == null)
+        {
+            GameManager.Instance.DefeatedEnemy(this);
+        }
     }
 }

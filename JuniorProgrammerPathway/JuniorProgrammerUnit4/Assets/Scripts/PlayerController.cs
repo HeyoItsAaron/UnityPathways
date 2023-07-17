@@ -20,16 +20,20 @@ public class PlayerController : MonoBehaviour
         focalPoint = FindObjectOfType<RotateCamera>().gameObject;
 
         // The selection ring is the game object that has the SelectionRingRotation script attached to it.
-        powerupIndicator = FindObjectOfType<SelectionRingRotation>().gameObject;
-        powerupIndicator.SetActive(false);
         hasPowerup = false;
+    }
+
+    private void OnEnable()
+    {
     }
 
     private void Update()
     {
-        float forwardInput = Input.GetAxis("Vertical");
-        playerRigidbody.AddForce(focalPoint.transform.forward * moveSpeed * forwardInput);
-
+        if(GameManager.Instance.gamePlaying == true)
+        {
+            float forwardInput = Input.GetAxis("Vertical");
+            playerRigidbody.AddForce(focalPoint.transform.forward * moveSpeed * forwardInput);
+        }
         if (hasPowerup == true)
         {
             powerupIndicator.transform.position = transform.position + new Vector3(0, -0.05f, 0);
@@ -46,6 +50,8 @@ public class PlayerController : MonoBehaviour
         {
             hasPowerup = true;
             Destroy(other.gameObject);
+            if (powerupIndicator != null) Destroy(powerupIndicator);
+            powerupIndicator = GameManager.Instance.PowerupIndicatorFactory.MakeGameObject();
             powerupIndicator.SetActive(true);
             StartCoroutine(PowerupCountdownRoutine());
         }
@@ -65,6 +71,11 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(7);
         hasPowerup = false;
-        powerupIndicator.SetActive(false);
+        Destroy(powerupIndicator);
+        powerupIndicator = null;
+    }
+    private void OnDestroy()
+    {
+        Destroy(powerupIndicator);
     }
 }

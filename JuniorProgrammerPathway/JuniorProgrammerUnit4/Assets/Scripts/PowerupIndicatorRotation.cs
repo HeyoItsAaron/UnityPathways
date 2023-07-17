@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectionRingRotation : MonoBehaviour
+public class PowerupIndicatorRotation : MonoBehaviour
 {
     [SerializeField] private float rotationSpeed = 1f;
 

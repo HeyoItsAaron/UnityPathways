@@ -2,19 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyFactory : MonoBehaviour
+public class EnemyFactory : GameObjectFactory
 {
-    [SerializeField] private float spawnRange = 9.0f;
     [SerializeField] private GameObject enemyPrefab;
-
-    public GameObject MakeEnemy()
+    private const float spawnRange = 9.0f;
+    protected override GameObject CreateGameObject()
     {
-        Vector3 spawnPos = GetRandomInSpawnRange(spawnRange);
+        Vector3 spawnPos = GetRandomInSpawnRange(spawnRange, 0.15f);
         return Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-    }
-
-    private Vector3 GetRandomInSpawnRange(float range)
-    {
-        return new Vector3(Random.Range(-range, range), 0.15f, Random.Range(-range, range));
     }
 }
