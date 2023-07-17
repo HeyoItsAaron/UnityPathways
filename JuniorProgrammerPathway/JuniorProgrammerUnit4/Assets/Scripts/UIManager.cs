@@ -54,7 +54,7 @@ public class UIManager : MonoBehaviour
     {
         ResetColorsAndText(highScore);
 
-        joystick.SetActive(false);
+        if (joystick != null) { joystick.SetActive(false); }
         retryButton.SetActive(false);
         finalScoreText.gameObject.SetActive(false);
         finalEnemyText.SetActive(false);
@@ -73,7 +73,7 @@ public class UIManager : MonoBehaviour
 
     public void SwitchToInGameUI()
     {
-        joystick.SetActive(true);
+        if (joystick != null) { joystick?.SetActive(true); }
         finalEnemyText.SetActive(false);
         finalTimeText.SetActive(false);
         finalEnemyUI.gameObject.SetActive(false);
@@ -96,7 +96,7 @@ public class UIManager : MonoBehaviour
 
     public void SwitchToRetryUI(bool newRecord)
     {
-        joystick.SetActive(false);
+        if (joystick != null) { joystick.SetActive(false); }
 
         if (newRecord)
         {
