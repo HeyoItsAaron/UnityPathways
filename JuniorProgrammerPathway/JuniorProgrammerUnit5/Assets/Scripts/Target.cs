@@ -8,6 +8,7 @@ public abstract class Target : MonoBehaviour
 
     [SerializeField] protected ParticleSystem destroyParticles;
     [SerializeField] protected ParticleSystem particles;
+    protected bool hit;
     protected Rigidbody targetRigidbody;
 
     protected float minSpeed = 12;
@@ -16,8 +17,9 @@ public abstract class Target : MonoBehaviour
     protected float xRange = 8;
     protected float ySpawnPos = -6;
 
-    protected void Start()
+    protected virtual void Start()
     {
+        hit = false;
         targetRigidbody = GetComponent<Rigidbody>();
         targetRigidbody.AddForce(RandomForce(), ForceMode.Impulse);
         targetRigidbody.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);

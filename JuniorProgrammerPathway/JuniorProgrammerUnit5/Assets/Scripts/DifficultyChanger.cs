@@ -15,21 +15,21 @@ public class DifficultyChanger : MonoBehaviour
     }
     public void SetEasy()
     {
-        GameManager.instance.SetDifficulty(1.0f);
+        GameManager.instance.SetDifficulty(1f);
         easyText.color = Color.white;
         mediumText.color = Color.black;
         hardText.color = Color.black;
     }
     public void SetMedium()
     {
-        GameManager.instance.SetDifficulty(0.75f);
+        GameManager.instance.SetDifficulty(0.5f);
         easyText.color = Color.black;
         mediumText.color = Color.white;
         hardText.color = Color.black;
     }
     public void SetHard()
     {
-        GameManager.instance.SetDifficulty(0.5f);
+        GameManager.instance.SetDifficulty(0.25f);
         easyText.color = Color.black;
         mediumText.color = Color.black;
         hardText.color = Color.white;

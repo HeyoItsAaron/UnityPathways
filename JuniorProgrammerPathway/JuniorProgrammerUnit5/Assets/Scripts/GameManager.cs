@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour
     private float difficulty;
     public bool isPlaying;
 
+    public float Difficulty { get => difficulty; set => difficulty = value; } // ENCAPSULATION
+
     private void Awake()
     {
         if (GameManager.instance != null)
@@ -137,6 +139,7 @@ public class GameManager : MonoBehaviour
         {
             score += targetScore;
             scoreText.text = score.ToString();
+            FinalScoreText.text = score.ToString();
         }
     }
     public void UpdateLives(int livesTaken = 0)
@@ -162,12 +165,17 @@ public class GameManager : MonoBehaviour
     {
         isPlaying = false;
         StopAllCoroutines();
+
         if(score > highScore)
         {
             UpdateHighScore(score);
         }
         InGameCanvas.SetActive(false);
         GameOverCanvas.SetActive(true);
+        foreach ( var t in FindObjectsOfType<Target>())
+        {
+            Destroy(t.gameObject); 
+        }
     }
     public void StartGame()
     {
