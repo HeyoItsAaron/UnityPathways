@@ -5,9 +5,9 @@ This repository is essentially storage for small projects I complete as I take t
 
 ## Pathway Progress
 - [x] Unity Essentials ... _[ completed 07/14/2023 ]_
-- [ ] Junior Programmer ... _[ IN PROGRESS ]_
-- [ ] Creative Core
-- [ ] VR Development
+- [ ] Junior Programmer ... _[ completed 07/27/2023 ]_
+- [ ] Creative Core ... _[ IN PROGRESS ]_
+- [ ] VR Development ... _[ IN PROGRESS ]_
 - [ ] Mobile AR Development
 
 
